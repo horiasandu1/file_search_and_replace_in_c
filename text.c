@@ -264,6 +264,7 @@ static void replace_occurence(int found_start_pos, int found_end_pos, char *file
         exit(1);
     }
     
+    
     do {
         pos = ftell(original_file);
         // Get current char
