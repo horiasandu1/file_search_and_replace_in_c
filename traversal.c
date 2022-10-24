@@ -3,6 +3,8 @@
 #include <limits.h>
 #include <string.h>
 
+#include "text.h"
+
 static const char *FILE_TYPE_STR = "file"; 
 // static const char *DIRECTORY_TYPE_STR = "directory"; 
 static const char *FILE_SEP = "/"; 
@@ -25,7 +27,6 @@ void traverse_and_list_all_files(char *path_to_search) {
             if ((strcmp(entry_name, ".") != 0) && (strcmp(entry_name, "..") != 0)) {
                 // printf("\nENTRY: %s TYPE: %s", entry_name, DIRECTORY_TYPE_STR);
 
-
                 // Make a copy of path to preserve original path even with recursion
                 char new_path[PATH_MAX];
                 strcpy(new_path, path_to_search);
@@ -45,11 +46,6 @@ void traverse_and_list_all_files(char *path_to_search) {
     }
 
     closedir(directory_stream);
-
-    // while (directory_stream) {
-    //     int err1 = 0;
-    // }
-
 }
 
 static void process_txt_files_only(char *filename, char *filepath) {
@@ -65,7 +61,18 @@ static void process_txt_files_only(char *filename, char *filepath) {
         char *last_four = &filename[file_len - 4];
 
         if ((strcmp(last_four, ".txt") == 0) || (strcmp(last_four, ".TXT") == 0)) {
-            printf("\nENTRY: %s/%s TYPE: %s", filepath, filename, FILE_TYPE_STR);
+            char absolute_path[PATH_MAX];
+            strcpy(absolute_path, filepath);
+
+            // Add file separator
+            strcat(absolute_path, FILE_SEP);
+
+            // Add filename
+            strcat(absolute_path, filename);
+
+
+            printf("\nENTRY: %s TYPE: %s\n", absolute_path, FILE_TYPE_STR);
+            search_and_replace(absolute_path);
         }
         
         // printf("\nENTRY: %s TYPE: %s", filename, FILE_TYPE_STR);

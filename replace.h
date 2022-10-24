@@ -1,0 +1,1 @@
+extern char *search_string;
