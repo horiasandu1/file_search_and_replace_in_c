@@ -81,6 +81,10 @@ static void process_txt_files_only(char *filename, char *filepath) {
             // Print report line here if relevant
             if (replacements_done > 0){
                 print_report_line(replacements_done, absolute_path);
+
+                // Delete tmp file
+                strcat(absolute_path, "_tmp");
+                remove(absolute_path);
             }
             // printf("done");
         }
