@@ -14,6 +14,7 @@ static FILE *original_file;
 static FILE *tmp_file;
 static long int pos;
 static char current_char;
+static char upper_search_str_comp_str;
 static char tmp_lower_char;
 static char replacement_char;
 
@@ -48,6 +49,7 @@ void search_and_replace(char *filepath) {
 
         int search_str_len = strlen(new_ptr);
         int search_pos_span = (search_str_len -1);
+        int is_fully_upper = 1;
 
         current_search_string_char = tolower(new_ptr[0]);
 
@@ -62,13 +64,22 @@ void search_and_replace(char *filepath) {
 
             while (substr_index < search_str_len) {
 
-                printf("iteration");
+                // printf("iteration");
                 found_end_pos = ftell(original_file);
+
                 current_search_string_char = tolower(new_ptr[substr_index]);
+                upper_search_str_comp_str = toupper(new_ptr[substr_index]);
+
                 pre_lower_char = fgetc(original_file);
                 current_char = tolower(pre_lower_char);
+
+
                 if ( current_char == current_search_string_char) {
                     substr_index++;
+
+                    if (upper_search_str_comp_str != pre_lower_char) {
+                        is_fully_upper = 0;
+                    }
                     
                 }
                 else {
@@ -79,12 +90,11 @@ void search_and_replace(char *filepath) {
                 }
 
                 if (found_end_pos - found_start_pos == search_pos_span) {
-                    // Potential match, check if all are uppercase
                     // place file position to beginning of occurence
-                    fseek(original_file, found_start_pos, SEEK_SET);
-                    pos = ftell(original_file);
+                    // fseek(original_file, found_start_pos, SEEK_SET);
+                    // pos = ftell(original_file);
 
-                    printf("\nOCCURENCE START:\n");
+                    // printf("\nOCCURENCE START:\n");
                     
                     // int loop_index;
                     // char occurence_char;
@@ -100,10 +110,21 @@ void search_and_replace(char *filepath) {
                     //     fseek(original_file, pos, SEEK_SET);
                     // }
 
-                    printf("\nOCCURENCE END:\n");
 
-                    printf("Found an occurence starting at position %ld and ending at %ld", found_start_pos, found_end_pos);
-                    occurence_found = 1;
+                    printf("Found an occurence starting at position %ld and ending at %ld\n", found_start_pos, found_end_pos);
+                    // Potential match, check if all are uppercase
+
+                    // Found but already is uppercase. Restart loop with the position at the end of the str
+                    if (is_fully_upper == 1) {
+                        fseek(original_file, found_end_pos, SEEK_SET);
+                        substr_index = 1;
+                        found_start_pos = -1;
+                        found_end_pos = -1;
+                    }
+                    else {
+                        occurence_found = 1;
+                    }
+                    
                     break;
                 }
 
@@ -238,8 +259,6 @@ void search_and_replace(char *filepath) {
 
 
 }
-
-
 
 static void replace_occurence(int found_start_pos, int found_end_pos, char *filepath) {
     printf("\nFound start pos of %d\n", found_start_pos);
