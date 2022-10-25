@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
     print_header(search_string, cwd);
     
-    traverse_and_list_all_files(cwd);
+    traverse_and_process_all_files(cwd);
     print_footer();
     exit(0);
 }

@@ -1,2 +1,2 @@
 #include <limits.h>
-void traverse_and_list_all_files(char *path_to_search);
+void traverse_and_process_all_files(char *path_to_search);

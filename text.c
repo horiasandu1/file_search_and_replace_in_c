@@ -15,10 +15,10 @@ static FILE *tmp_file;
 static long int pos;
 static char current_char;
 static char upper_search_str_comp_str;
-static char tmp_lower_char;
 static char replacement_char;
 
-int occurence_found = 0;
+int occurence_found;
+int replacements_done;
 
 void search_and_replace(char *filepath) {
     printf("Searching file %s", filepath);
@@ -192,6 +192,7 @@ static void replace_occurence(int found_start_pos, int found_end_pos, char *file
 
 static void replace_original_file_with_tmpchar(char *filepath, char *tmp_path) {
     original_file = fopen(filepath, "w");
+    ++replacements_done;
     if (original_file == NULL) {
         fprintf(stderr, "ERROR: %s. Could not open file.\n\n", strerror(errno));
         exit(1);

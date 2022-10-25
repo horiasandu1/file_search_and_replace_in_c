@@ -4,14 +4,13 @@
 #include <string.h>
 
 #include "text.h"
+#include "report.h"
 
-static const char *FILE_TYPE_STR = "file"; 
-// static const char *DIRECTORY_TYPE_STR = "directory"; 
 static const char *FILE_SEP = "/"; 
 
 static void process_txt_files_only(char *filename, char *filepath);
 
-void traverse_and_list_all_files(char *path_to_search) {
+void traverse_and_process_all_files(char *path_to_search) {
     DIR *directory_stream;
     struct dirent *directory_entry;
 
@@ -37,7 +36,7 @@ void traverse_and_list_all_files(char *path_to_search) {
                 // Add subdir
                 strcat(new_path, entry_name);
 
-                traverse_and_list_all_files(new_path);
+                traverse_and_process_all_files(new_path);
             }
         } else {
             process_txt_files_only(entry_name, path_to_search);
@@ -71,12 +70,19 @@ static void process_txt_files_only(char *filename, char *filepath) {
             strcat(absolute_path, filename);
 
             occurence_found = 0;
-            printf("\nENTRY: %s TYPE: %s\n", absolute_path, FILE_TYPE_STR);
+            replacements_done = 0;
+            printf("\nENTRY: %s\n", absolute_path);
             printf("\nOccurence found ? %d\n", occurence_found);
 
             while (occurence_found >= 0 ){
                 search_and_replace(absolute_path);
             }
+
+            // Print report line here if relevant
+            if (replacements_done > 0){
+                print_report_line();
+            }
+            printf("done");
         }
         
         // printf("\nENTRY: %s TYPE: %s", filename, FILE_TYPE_STR);
