@@ -71,8 +71,8 @@ static void process_txt_files_only(char *filename, char *filepath) {
 
             occurence_found = 0;
             replacements_done = 0;
-            printf("\nENTRY: %s\n", absolute_path);
-            printf("\nOccurence found ? %d\n", occurence_found);
+            // printf("\nENTRY: %s\n", absolute_path);
+            // printf("\nOccurence found ? %d\n", occurence_found);
 
             while (occurence_found >= 0 ){
                 search_and_replace(absolute_path);
@@ -80,9 +80,9 @@ static void process_txt_files_only(char *filename, char *filepath) {
 
             // Print report line here if relevant
             if (replacements_done > 0){
-                print_report_line();
+                print_report_line(replacements_done, absolute_path);
             }
-            printf("done");
+            // printf("done");
         }
         
         // printf("\nENTRY: %s TYPE: %s", filename, FILE_TYPE_STR);
