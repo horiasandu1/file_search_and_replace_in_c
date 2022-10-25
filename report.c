@@ -1,6 +1,8 @@
 #include <limits.h>
 #include <stdio.h>
 
+// FIX WHEN PHRASE IS JUST ONE CHAR LONG
+
 void print_header(char *search_string, char *cwd) {
     char updates_header[10] = "Updates";
     char filename_header[15] = "File Name";
