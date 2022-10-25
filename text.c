@@ -8,6 +8,7 @@
 #include "replace.h"
 
 static void replace_occurence(int found_start_pos, int found_end_pos, char *filepath);
+static void replace_original_file_with_tmpchar(char *filepath, char *tmp_file);
 
 static FILE *original_file;
 static FILE *tmp_file;
@@ -290,4 +291,38 @@ static void replace_occurence(int found_start_pos, int found_end_pos, char *file
     fclose(original_file);
     fclose(tmp_file);
 
+    replace_original_file_with_tmpchar(filepath, tmp_path);
+
+}
+
+
+
+static void replace_original_file_with_tmpchar(char *filepath, char *tmp_path) {
+    original_file = fopen(filepath, "w");
+    if (original_file == NULL) {
+        fprintf(stderr, "ERROR: %s. Could not open file.\n\n", strerror(errno));
+        exit(1);
+    }
+
+    tmp_file = fopen(tmp_path, "r");
+    if (tmp_file == NULL) {
+        fprintf(stderr, "ERROR: %s. Could not open file.\n\n", strerror(errno));
+        exit(1);
+    }
+    
+    
+    do {
+        current_char = fgetc(tmp_file);
+        printf("%c", current_char);
+
+
+        if (feof(tmp_file)) {
+            break;
+        }
+        
+        fputc(current_char, original_file);
+    }
+    while (1);
+    fclose(original_file);
+    fclose(tmp_file);
 }
