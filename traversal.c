@@ -72,7 +72,11 @@ static void process_txt_files_only(char *filename, char *filepath) {
 
 
             printf("\nENTRY: %s TYPE: %s\n", absolute_path, FILE_TYPE_STR);
-            search_and_replace(absolute_path);
+            printf("\nOccurence found ? %d\n", occurence_found);
+
+            while (occurence_found >= 0 ){
+                search_and_replace(absolute_path);
+            }
         }
         
         // printf("\nENTRY: %s TYPE: %s", filename, FILE_TYPE_STR);
