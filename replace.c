@@ -13,6 +13,9 @@ static int validate_search_string(int arg_count, char *search_string);
 
 char *search_string;
 
+// Use PATH_MAX from the limits lib for a sane default max size
+char cwd[PATH_MAX];
+
 int main(int argc, char *argv[]) {
     
     // Get the string to search. Limit this to one arg
@@ -22,8 +25,7 @@ int main(int argc, char *argv[]) {
     if (val_res != 0) {
         exit(val_res);
     }
-    // Use PATH_MAX from the limits lib for a sane default max size
-    char cwd[PATH_MAX];
+
 
     // Error handle finding the cwd
     if (getcwd(cwd, sizeof(cwd)) == NULL) {
