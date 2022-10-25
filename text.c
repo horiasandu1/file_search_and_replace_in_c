@@ -46,8 +46,6 @@ void search_and_replace(char *filepath) {
     do {
         pos = ftell(original_file);
         // Get current char
-
-
         int search_str_len = strlen(new_ptr);
         int search_pos_span = (search_str_len -1);
         int is_fully_upper = 1;
@@ -62,6 +60,10 @@ void search_and_replace(char *filepath) {
 
             int substr_index = 1;
             found_start_pos = pos;
+            upper_search_str_comp_str = toupper(new_ptr[0]);
+            if (upper_search_str_comp_str != pre_lower_char) {
+                is_fully_upper = 0;
+            }
 
             while (substr_index < search_str_len) {
 
