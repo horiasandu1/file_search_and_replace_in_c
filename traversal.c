@@ -70,7 +70,7 @@ static void process_txt_files_only(char *filename, char *filepath) {
             // Add filename
             strcat(absolute_path, filename);
 
-
+            occurence_found = 0;
             printf("\nENTRY: %s TYPE: %s\n", absolute_path, FILE_TYPE_STR);
             printf("\nOccurence found ? %d\n", occurence_found);
 
