@@ -10,10 +10,12 @@
 
 static const char *FILE_SEP = "/"; 
 
-static struct indiv_file_report {
+struct indiv_file_report {
     char file_path[PATH_MAX];
     long int replace_counter;
 };
+
+void traverse_and_process_all_files(char *path_to_search, struct indiv_file_report *report_buffer);
 
 static struct indiv_file_report* process_txt_files_only(char *filename, char *filepath);
 static struct indiv_file_report *current_struct_ptr;
@@ -26,10 +28,10 @@ static struct indiv_file_report* report_buffer;
 
 void initialize_and_start_processing(char *path_to_search) {
     // Start with 5 and resize if needed since I've read realloc calls are expensive
-    struct indiv_file_report* report_buffer = malloc(buffer_size * struct_size);
-    struct indiv_file_report* ptr_ptr = report_buffer;
+    report_buffer = malloc(buffer_size * struct_size);
+    // struct indiv_file_report* ptr_ptr = report_buffer;
 
-    traverse_and_process_all_files(path_to_search, &ptr_ptr);
+    traverse_and_process_all_files(path_to_search, report_buffer);
 }
 
 
@@ -74,9 +76,9 @@ void traverse_and_process_all_files(char *path_to_search, struct indiv_file_repo
                     buffer_size++;
                     avail_buffer_size++;
 
-                    char *success_ptr = realloc(report_buffer, (buffer_size * struct_size));
+                    report_buffer = realloc(report_buffer, (buffer_size * struct_size));
 
-                    if (success_ptr == NULL) {
+                    if (report_buffer == NULL) {
                         fprintf(stderr, "ERROR: %s. Realloc failed\n\n", strerror(errno));
                         exit(1);
                     }
