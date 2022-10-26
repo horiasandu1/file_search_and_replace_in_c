@@ -3,6 +3,7 @@
 #include <dirent.h>
 #include <limits.h>
 #include <string.h>
+#include <errno.h>
 
 #include "text.h"
 #include "report.h"
@@ -21,13 +22,21 @@ static size_t struct_size = sizeof(struct indiv_file_report);
 static int allocated_buffer_index = -1;
 static int buffer_size = 5;
 static int avail_buffer_size = 5;
+static struct indiv_file_report* report_buffer;
 
 void initialize_and_start_processing(char *path_to_search) {
     // Start with 5 and resize if needed since I've read realloc calls are expensive
     struct indiv_file_report* report_buffer = malloc(buffer_size * struct_size);
+    struct indiv_file_report* ptr_ptr = report_buffer;
 
-    traverse_and_process_all_files(path_to_search, report_buffer);
+    traverse_and_process_all_files(path_to_search, &ptr_ptr);
 }
+
+
+
+
+// Problem to solve: recursive realloc
+
 
 void traverse_and_process_all_files(char *path_to_search, struct indiv_file_report *report_buffer) {
     DIR *directory_stream;
@@ -65,7 +74,12 @@ void traverse_and_process_all_files(char *path_to_search, struct indiv_file_repo
                     buffer_size++;
                     avail_buffer_size++;
 
-                    realloc(report_buffer, (buffer_size * struct_size));
+                    char *success_ptr = realloc(report_buffer, (buffer_size * struct_size));
+
+                    if (success_ptr == NULL) {
+                        fprintf(stderr, "ERROR: %s. Realloc failed\n\n", strerror(errno));
+                        exit(1);
+                    }
                 }
                 
                 
@@ -80,7 +94,6 @@ void traverse_and_process_all_files(char *path_to_search, struct indiv_file_repo
         }
 
     }
-
     closedir(directory_stream);
 }
 
