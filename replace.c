@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 
     print_header(search_string, cwd);
     
-    traverse_and_process_all_files(cwd);
+    initialize_and_start_processing(cwd);
     print_footer();
     exit(0);
 }

@@ -29,11 +29,6 @@ void search_and_replace(char *filepath) {
     
     // Check if this is really necessary
     char *new_ptr = search_string;
-    
-
-    // printf("search string: %s", search_string);
-
-    // printf("\nREAD FROM LOWERED TEMP FILE\n");
 
     long int found_start_pos = -1;
     long int found_end_pos = -1;
@@ -124,18 +119,12 @@ void search_and_replace(char *filepath) {
             }
         }
 
-
-
         if (feof(original_file) || occurence_found == 1) {
             break;
         }
     }
     while (1);
     fclose(original_file);
-
-
-
-    // printf("\nEOF\n");
 
     if (occurence_found == 1) {
         replace_occurence(found_start_pos, found_end_pos, filepath);
@@ -148,15 +137,10 @@ void search_and_replace(char *filepath) {
 }
 
 static void replace_occurence(int found_start_pos, int found_end_pos, char *filepath) {
-    // printf("\nFound start pos of %d\n", found_start_pos);
-    // printf("\nFound end pos of %d\n", found_end_pos);
-
     // Create temp absolute file path
     char tmp_path[PATH_MAX];
     strcpy(tmp_path, filepath);
     strcat(tmp_path, "_tmp");
-
-    // printf("\ntmp file: %s\n", tmp_path);
 
     // Open both files, one read one write
     original_file = fopen(filepath, "r");
@@ -177,7 +161,6 @@ static void replace_occurence(int found_start_pos, int found_end_pos, char *file
         // Get current char
         current_char = fgetc(original_file);
         // printf("%c", current_char);
-
 
         if (feof(original_file)) {
             break;
@@ -200,8 +183,6 @@ static void replace_occurence(int found_start_pos, int found_end_pos, char *file
     replace_original_file_with_tmpchar(filepath, tmp_path);
 
 }
-
-
 
 static void replace_original_file_with_tmpchar(char *filepath, char *tmp_path) {
     original_file = fopen(filepath, "w");
@@ -233,7 +214,6 @@ static void replace_original_file_with_tmpchar(char *filepath, char *tmp_path) {
     fclose(original_file);
     fclose(tmp_file);
 }
-
 
 static void process_single_char_replacement(char *filepath, char *tmp_path, char *search_string) {
     // Leave original file open at end, is closed by breaking out of the outer loop
@@ -293,8 +273,6 @@ static void process_single_char_replacement(char *filepath, char *tmp_path, char
     
     do {
         current_char = fgetc(tmp_file);
-        // printf("%c", current_char);
-
 
         if (feof(tmp_file)) {
             break;
