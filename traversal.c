@@ -15,7 +15,7 @@ struct indiv_file_report {
     long int replace_counter;
 };
 
-void traverse_and_process_all_files(char *path_to_search, struct indiv_file_report *report_buffer);
+void traverse_and_process_all_files(char *path_to_search);
 
 static struct indiv_file_report* process_txt_files_only(char *filename, char *filepath);
 static struct indiv_file_report *current_struct_ptr;
@@ -31,7 +31,9 @@ void initialize_and_start_processing(char *path_to_search) {
     report_buffer = malloc(buffer_size * struct_size);
     // struct indiv_file_report* ptr_ptr = report_buffer;
 
-    traverse_and_process_all_files(path_to_search, report_buffer);
+    traverse_and_process_all_files(path_to_search);
+
+    free(report_buffer);
 }
 
 
@@ -40,7 +42,7 @@ void initialize_and_start_processing(char *path_to_search) {
 // Problem to solve: recursive realloc
 
 
-void traverse_and_process_all_files(char *path_to_search, struct indiv_file_report *report_buffer) {
+void traverse_and_process_all_files(char *path_to_search) {
     DIR *directory_stream;
     struct dirent *directory_entry;
 
@@ -66,7 +68,7 @@ void traverse_and_process_all_files(char *path_to_search, struct indiv_file_repo
                 // Add subdir
                 strcat(new_path, entry_name);
 
-                traverse_and_process_all_files(new_path, report_buffer);
+                traverse_and_process_all_files(new_path);
             }
         } else {
             current_struct_ptr = process_txt_files_only(entry_name, path_to_search);
