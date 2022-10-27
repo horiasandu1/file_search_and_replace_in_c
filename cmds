@@ -1,0 +1,96 @@
+v95  cd comp348/file_search_and_replace_in_c/
+  496  wd
+  497  pwd
+  498  pwd
+  499  cd comp348/file_search_and_replace_in_c/
+  500  docker ps
+  501  pwd
+  502  cd var/comp348/file_search_and_replace_in_c/
+  503  git status
+  504  cd /var/comp348/file_search_and_replace_in_c/
+  505  rm -rf samples2
+  506  cp -r ../samples2/ .
+  507  ls
+  508  rm a.out 
+  509  rm -rf samples2; cp -r ../samples2/ .;
+  510  rm -rf samples2; cp -r ../samples2/ .;
+  511  rm -rf samples2; cp -r ../samples2/ .;
+  512  rm -rf samples2; cp -r ../samples2/ .;
+  513  rm -rf samples2; cp -r ../samples2/ .;
+  514  rm -rf samples2; cp -r ../samples2/ .;
+  515  ls
+  516  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  517  ls
+  518  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  519  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  520  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  521  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  522  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  523  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  524  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  525  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  526  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  527  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  528  valgrind ./a.out x
+  529  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  530  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2
+  531  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2 .
+  532  valgrind ./a.out x
+  533  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2 .
+  534  ./a.out x
+  535  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2 .
+  536  valgrind ./a.out x
+  537  history | grep valgrind
+  538  valgrind –-leak-check=yes ./a.out x
+  539  valgrind –-leak-check=yes ./a.out x
+  540  valgrind –-leak-check=yes ./a.out x
+  541  valgrind --help | grep leak
+  542  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2 .
+  543  valgrind –-leak-check=full ./a.out x
+  544  valgrind --help
+  545  valgrind –-leak-check=full ./a.out x
+  546  valgrind –-leak-check=full ./a.out x
+  547  valgrind –-leak-check=full ./a.out x
+  548  valgrind �--tool=memcheck �-leak-check=full ./a.out x
+  549  history
+  550  valgrind --tool=memcheck --leak-check=full ./a.out x
+  551  valgrind --tool=memcheck --leak-check=full ./a.out x
+  552  valgrind --tool=memcheck --leak-check=full ./a.out x
+  553  clear
+  554  valgrind --tool=memcheck --leak-check=full ./a.out x
+  555  valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./a.out x
+  556  valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./a.out x
+  557  valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -g ./a.out x
+  558  valgrind --tool=memcheck --leak-check=full -g --show-leak-kinds=all ./a.out x
+  559  valgrind --help | grep g
+  560  valgrind --help | grep --g
+  561  valgrind --help | grep -c
+  562  valgrind --help | grep debug
+  563  valgrind --help | grep gcc
+  564  clear
+  565  valgrind --tool=memcheck --leak-check=full -g --show-leak-kinds=all ./a.out x
+  566  valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./a.out x
+  567  valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s ./a.out x
+  568  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2 .
+  569  history | grep rm
+  570  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  571  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  572  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/
+  573  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ .
+  574  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  575  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  576  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  577  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  578  history | grep valgrind
+  579    valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s ./a.out x
+  580  ./a.out x
+  581  ./a.out x
+  582    valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s ./a.out x
+  583    valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s ./a.out x
+  584  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  585  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  586  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  587  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  588  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  589  rm -rf samples2; cp -r ../samples2/ .; cp -r ../samples2/ ./samples3
+  590  history

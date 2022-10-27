@@ -7,13 +7,9 @@
 
 #include "text.h"
 #include "report.h"
+#include "traversal.h"
 
 static const char *FILE_SEP = "/"; 
-
-struct indiv_file_report {
-    char file_path[PATH_MAX];
-    long int replace_counter;
-};
 
 void traverse_and_process_all_files(char *path_to_search);
 
@@ -24,7 +20,7 @@ static size_t struct_size = sizeof(struct indiv_file_report);
 static int allocated_buffer_index = -1;
 static int buffer_size = 5;
 static int avail_buffer_size = 5;
-static struct indiv_file_report* report_buffer;
+struct indiv_file_report *report_buffer;
 
 void initialize_and_start_processing(char *path_to_search) {
     // Start with 5 and resize if needed since I've read realloc calls are expensive
@@ -33,6 +29,8 @@ void initialize_and_start_processing(char *path_to_search) {
 
     traverse_and_process_all_files(path_to_search);
 
+
+    print_report_lines(report_buffer, buffer_size);
     free(report_buffer);
 }
 
@@ -74,7 +72,7 @@ void traverse_and_process_all_files(char *path_to_search) {
             current_struct_ptr = process_txt_files_only(entry_name, path_to_search);
 
             if (current_struct_ptr->replace_counter > -1) {
-                if (avail_buffer_size < 1) {
+                if (avail_buffer_size < 2) {
                     buffer_size++;
                     avail_buffer_size++;
 
@@ -88,12 +86,12 @@ void traverse_and_process_all_files(char *path_to_search) {
                 
                 
                 allocated_buffer_index++;
-                report_buffer[allocated_buffer_index] = *current_struct_ptr;
+                // report_buffer[allocated_buffer_index] = *current_struct_ptr;
+
+                
+                memcpy(&report_buffer[allocated_buffer_index], current_struct_ptr, struct_size);
                 avail_buffer_size--;
 
-                // struct indiv_file_report ptr1 = report_buffer[0];
-                // struct indiv_file_report ptr2 = report_buffer[1];
-                printf("done");
             }
         }
 
@@ -140,7 +138,11 @@ static struct indiv_file_report* process_txt_files_only(char *filename, char *fi
 
                 // current_report_struct.file_path = absolute_path;
                 strcpy(current_report_struct.file_path, absolute_path);
+
+
                 current_report_struct.replace_counter = replacements_done;
+
+                long int replacement_from_counter = current_report_struct.replace_counter;
 
                 // Delete tmp file
                 strcat(absolute_path, "_tmp");
