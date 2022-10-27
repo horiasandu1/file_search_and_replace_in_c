@@ -15,11 +15,13 @@ void traverse_and_process_all_files(char *path_to_search);
 
 static struct indiv_file_report* process_txt_files_only(char *filename, char *filepath);
 static struct indiv_file_report *current_struct_ptr;
-static size_t struct_size = sizeof(struct indiv_file_report);
+const size_t struct_size = sizeof(struct indiv_file_report);
 
 static int allocated_buffer_index = -1;
 static int buffer_size = 5;
 static int avail_buffer_size = 5;
+
+int buffer_spots_taken = 0;
 struct indiv_file_report *report_buffer;
 
 void initialize_and_start_processing(char *path_to_search) {
@@ -30,7 +32,7 @@ void initialize_and_start_processing(char *path_to_search) {
     traverse_and_process_all_files(path_to_search);
 
 
-    print_report_lines(report_buffer, buffer_size);
+    print_report_lines(report_buffer, buffer_spots_taken);
     free(report_buffer);
 }
 
@@ -72,9 +74,18 @@ void traverse_and_process_all_files(char *path_to_search) {
             current_struct_ptr = process_txt_files_only(entry_name, path_to_search);
 
             if (current_struct_ptr->replace_counter > -1) {
+
+                allocated_buffer_index++;
+                // report_buffer[allocated_buffer_index] = *current_struct_ptr;
+
+                
+                memcpy(&report_buffer[allocated_buffer_index], current_struct_ptr, struct_size);
+                buffer_spots_taken++;
+                avail_buffer_size--;
+
                 if (avail_buffer_size < 2) {
-                    buffer_size++;
-                    avail_buffer_size++;
+                    buffer_size = buffer_size + 5;
+                    avail_buffer_size = avail_buffer_size + 5;
 
                     report_buffer = realloc(report_buffer, (buffer_size * struct_size));
 
@@ -84,14 +95,6 @@ void traverse_and_process_all_files(char *path_to_search) {
                     }
                 }
                 
-                
-                allocated_buffer_index++;
-                // report_buffer[allocated_buffer_index] = *current_struct_ptr;
-
-                
-                memcpy(&report_buffer[allocated_buffer_index], current_struct_ptr, struct_size);
-                avail_buffer_size--;
-
             }
         }
 
@@ -134,15 +137,13 @@ static struct indiv_file_report* process_txt_files_only(char *filename, char *fi
 
             // Print report line here if relevant
             if (replacements_done > 0){
-                print_report_line(replacements_done, absolute_path);
+                // print_report_line(replacements_done, absolute_path);
 
                 // current_report_struct.file_path = absolute_path;
                 strcpy(current_report_struct.file_path, absolute_path);
 
 
                 current_report_struct.replace_counter = replacements_done;
-
-                long int replacement_from_counter = current_report_struct.replace_counter;
 
                 // Delete tmp file
                 strcat(absolute_path, "_tmp");
